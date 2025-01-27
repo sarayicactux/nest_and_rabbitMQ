@@ -6,7 +6,7 @@ Object.keys(Models).forEach((model) => {
   allModels.push(Models[model]);
 });
 export default SequelizeModule.forRoot({
-  storage: './test.sqlite',
+  storage: './my_db.sqlite',
   dialect: 'sqlite',
   autoLoadModels: true,
   synchronize: true,

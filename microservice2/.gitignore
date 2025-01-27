@@ -6,9 +6,7 @@
 /public.
 /dist
 /node_modules
-/microservice/node_modules
-/microservice2/node_modules
-/restapi/node_modules
+/blog/node_modules
 .vscode
 .history
 #.env

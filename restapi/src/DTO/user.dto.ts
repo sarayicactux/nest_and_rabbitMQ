@@ -9,6 +9,7 @@ export function userObj(user) {
     username: user.username,
     name: user.name,
     lastName: user.lastName,
+    token: user.token,
   };
 }
 
@@ -48,6 +49,10 @@ export class UserDto {
   @IsNotEmpty()
   @ApiProperty({ type: String })
   lastName: string;
+
+  @IsNotEmpty()
+  @ApiProperty({ type: String })
+  token: string;
 }
 export class UserLoginDto {
   @IsNotEmpty()

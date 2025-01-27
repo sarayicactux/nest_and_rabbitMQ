@@ -26,6 +26,12 @@ export class User extends Model {
   password: string;
 
   @Column({
+    type: Sequelize.TEXT,
+    allowNull: false,
+  })
+  token: string;
+
+  @Column({
     type: Sequelize.STRING(200),
     allowNull: false,
   })

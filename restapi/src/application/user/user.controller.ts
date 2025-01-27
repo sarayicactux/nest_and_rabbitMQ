@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Headers,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -6,6 +14,7 @@ import {
   ApiNotFoundResponse,
   ApiInternalServerErrorResponse,
   ApiBody,
+  ApiHeader,
 } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
@@ -63,6 +72,30 @@ export class UserController {
   async register(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
     try {
       const user = await this.userService.register(createUserDto);
+      return user;
+    } catch (err) {
+      throw err;
+    }
+  }
+  // get user ************************************
+  @ApiOperation({
+    summary: ' get user  ',
+  })
+  @ApiOkResponse({
+    description: 'get user successful',
+    type: UserDto,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'register user faild',
+  })
+  @ApiHeader({
+    name: 'token',
+  })
+  @Get('')
+  @HttpCode(HttpStatus.OK)
+  async getUser(@Headers() headers): Promise<UserDto> {
+    try {
+      const user = await this.userService.getUser(headers?.token);
       return user;
     } catch (err) {
       throw err;

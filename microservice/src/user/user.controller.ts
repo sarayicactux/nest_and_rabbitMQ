@@ -27,10 +27,27 @@ export class UserController {
   @MessagePattern('login_user')
   async loginUser(loginInterface: LoginInterface): Promise<ResultInterface> {
     const { username, password } = loginInterface;
-    const user = await this.userService.login(username, password);
-    if (!user) {
-      return { status: 403, error: 'Invalid credentials', data: null };
+    try {
+      const user = await this.userService.login(username, password);
+      if (!user) {
+        return { status: 403, error: 'Invalid credentials', data: null };
+      }
+      return { status: 200, data: user };
+    } catch (error) {
+      return { status: 403, error, data: null };
     }
-    return { status: 200, data: user };
+  }
+
+  @MessagePattern('get_user')
+  async getUser(token: string): Promise<ResultInterface> {
+    try {
+      const user = await this.userService.getUser(token);
+      if (!user) {
+        return { status: 403, error: 'Invalid token', data: null };
+      }
+      return { status: 200, data: user };
+    } catch (error) {
+      return { status: 403, error, data: null };
+    }
   }
 }
